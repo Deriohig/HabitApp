@@ -1,0 +1,14 @@
+{
+ "name": "Traker",
+ "version": "0.0.1",
+ "description": "Meteor + React + Habit tracking",
+ "author": "Deriohig",
+ "repository": {
+  "type": "git",
+  "url": "https://github.com/Deriohig"
+ },
+ "dependencies": {
+  "react-modal":"0.6.1",
+  "react-dom":"0.14.6"
+ }
+}
