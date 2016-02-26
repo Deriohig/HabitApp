@@ -33,21 +33,22 @@ Table = React.createClass ({
 	render: function(){
 		console.log(this.props.habits);
 
-			return(
-					<table>
-						<thead>
-							<tr>
-								<th>Habit</th>
-								<th>Time</th>
-								<th>Experience</th>
-							</tr>
-						</thead>
-						<tbody>
-							{this.renderHabitTable()}
-						</tbody>
-					</table>
-				)
 
+
+		var thead = React.DOM.thead({},
+            React.DOM.tr({},
+                this.props.cols.map(function (col) {
+                    return React.DOM.th({}, col);
+            })));
+
+        var tbody = this.props.rows.map(function (row) {
+            return React.DOM.tr({},
+            _self.props.cols.map(function (col) {
+                return React.DOM.td({}, row[col] || "");
+            }));
+        });
+
+        return React.DOM.table({}, [thead, tbody]);
 
 		}
 });

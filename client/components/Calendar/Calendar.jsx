@@ -7,6 +7,9 @@ Calendar = React.createClass({
 			  		this.render();
 			  	},
 
+			  	shouldComponentUpdate: function(nextProps, nextState) {
+				  return nextProps.obj !== this.props.obj;
+				},
 
 				getInitialState: function() {
 					return {
@@ -137,8 +140,13 @@ Calendar = React.createClass({
 					var weekData = [weekcount, weekValue]
 					var monthData = [monthcount, monthValue];
 
-					var dayData = [dayTotal,daycount/7];
+					console.log(dayTotal);
+					console.log(daycount);
+
 					
+					
+					var fixMargin = {margin: "0px" , marginLeft: '10px'};
+
 
 					var styles={
 							width: '20px',
@@ -148,16 +156,39 @@ Calendar = React.createClass({
 							backgroundColor: this.props.obj.importance,
 							float:'left'
 						};
+						var iconStyle = {	fontSize :'30px', color:'#92278f', float: 'left' , paddingTop: '30px', paddingRight	: '20px'};
+						var topblockgrey = {height:'100px',
+				
+									backgroundColor:'#f1f2f2' };
+
+				var topblockoffgrey = {height:'100px',
+
+									   backgroundColor:'#e6e7e8' };
 
 					return <div>
-								 <div className = "color-code" style={styles}></div><h2>{this.props.obj.title}</h2> 
-								<div className="row"><div className="col-md-12 pie-charts">
+
+								<div className="col-md-12"><div className="col-md-12" style={{borderBottom:'solid 1px darkgrey'}}> <div className="color-code" style={styles}></div><h2>{this.props.obj.title}</h2> <span className='difficulty'> Difficulty:</span></div></div>
+
+								<div className="col-md-12 clear-padding">
+									<div className="col-md-12">
+
+											<div className="col-md-4 clear-padding" > <span className = "iconleft"><i className="icon-cw-2" style={iconStyle}></i></span><div className="infoData"><span className="dataplace">{this.props.obj.beststreak}</span><h4>Longest Streak</h4></div></div>
+											<div className="col-md-4 clear-padding"  >  <span className = "iconleft"><i className="icon-pitch" style={iconStyle}></i></span><div className="infoData"><span className="dataplace">{this.props.obj.streak}</span><h4>Current Streak</h4></div></div>
+											<div className="col-md-4 clear-padding">  <span className = "iconleft"><i className="icon-money" style={iconStyle}></i></span><div className="infoData"><span className="dataplace">{this.props.obj.recievedKarma}</span><h4>Recieved Karma</h4></div> </div>		
+									</div>
+								</div>
+									<div className="row" style={fixMargin}>
+										<div className="col-md-12 pie-charts">
 								
-								<PieChart data={dayData} divId={"total-logs"} color={"#5dba47"} title={"Daily Target"}/>
-								<PieChart data={weekData} divId={"Daily"} color={"#3b97d3"} title={"Weekly Target"}/>
-								<PieChart data={monthData} divId={"Weekly"}color={"#db4258"} title={"Monthly Target"}/>				
-								</div></div>
-									<div className="row">
+											<PieChart data={dayData} divId={"total-logs"} color={"#5dba47"} title={"Daily Target"}/>
+											<PieChart data={weekData} divId={"Daily"} color={"#3b97d3"} title={"Weekly Target"}/>
+											<PieChart data={monthData} divId={"Weekly"}color={"#db4258"} title={"Monthly Target"}/>	
+
+										</div>
+									</div>
+
+								
+									<div className="row clear-padding" style={fixMargin}>
 										<div className="calendar">
 											<div className="header">
 												<i className="fa fa-angle-left" onClick={this.previous}></i>
@@ -246,7 +277,6 @@ Calendar = React.createClass({
                         			day.joincolor= "#e74c3c";
 
                         		}
-
                    
                         }
 

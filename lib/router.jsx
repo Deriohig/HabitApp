@@ -1,28 +1,38 @@
+const publicRoutes = FlowRouter.group({name : 'public'});
 
-FlowRouter.route('/', {
+const authenticatedRoutes = FlowRouter.group({name: 'authenticated'});
+
+publicRoutes.route('/', {
 	name:'Index',
 	action(){
 
-		ReactLayout.render(IndexLayout, {
-          indexheader: <IndexHeader />
+		ReactLayout.render(MainLayout, {
+          indexheader: <IndexLayout />
 }); }
 });
 
-FlowRouter.route('/dashboard', {
+authenticatedRoutes.route('/dashboard', {
 	name:'Dashboard',
 	action(params) {
 		renderLayoutWith(<Dashboard />)
 	}
 });
 
-FlowRouter.route("/task", {
+authenticatedRoutes.route("/task", {
 	name: "task",
 	action(params) {
 		renderLayoutWith(<TaskTable />)
 	}
 });
 
-FlowRouter.route("/habit", {
+authenticatedRoutes.route("/rewards", {
+	name: "task",
+	action(params) {
+		renderLayoutWith(<RewardsContent />)
+	}
+});
+
+authenticatedRoutes.route("/habit", {
 	name: "dash",
 	action(params) {
 		renderLayoutWith(<HabitContent />)
@@ -31,6 +41,7 @@ FlowRouter.route("/habit", {
 
 function renderLayoutWith(component){
 	ReactLayout.render(MainLayout, {
+		sendhome: <IndexLayout/>,
 		nav: <Nav />,
 		head: <Head />,
 		content: component

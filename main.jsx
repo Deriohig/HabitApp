@@ -2,7 +2,7 @@
 // Define a collection to hold our tasks
 Tasks = new Mongo.Collection("tasks");
 Habits = new Mongo.Collection("habits");
-Profiles = new Mongo.Collection("profiles"); 
+Rewards = new Mongo.Collection("rewards");
 
 if (Meteor.isClient) {
   // This code is executed on the client only
@@ -25,7 +25,6 @@ if (Meteor.isClient) {
 
 
 if (Meteor.Server) {
-  // This code is executed on the client only
-   
+ 
   
 };

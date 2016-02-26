@@ -8,7 +8,7 @@ ControlledModal = React.createClass({
        
           // Find the text field via the React ref
           var text = ReactDOM.findDOMNode(this.refs.textInput).value.trim();
-        var state = ReactDOM.findDOMNode(this.refs.state).value.trim();
+         var state = ReactDOM.findDOMNode(this.refs.state).value.trim();
         var freq = ReactDOM.findDOMNode(this.refs.freqInput).value.trim();
         var imp = ReactDOM.findDOMNode(this.refs.importance).value;
           Habits.insert({
@@ -17,6 +17,7 @@ ControlledModal = React.createClass({
             actions: 0,
             streak: 0,
             beststreak: 0,
+            recievedKarma:0,
             frequency: freq,
             Poslog: [],
             Neglog: [],
@@ -30,7 +31,7 @@ ControlledModal = React.createClass({
           ReactDOM.findDOMNode(this.refs.freqInput).value = "";
           this.props.closeModal();
         },
-  render () {
+  render() {
 
     return (
       <div>
@@ -38,24 +39,35 @@ ControlledModal = React.createClass({
           isOpen={ this.props.isOpen }
           close={ this.props.closeModal }
           title="Add Habit">
-          <form className="new-habit "form-horizontal"" style={{ paddingBottom: '5px'}} >
+          <form className="new-habit form-horizontal" style={{ paddingBottom: '5px'}} >
+
+
+                 <label  class="col-sm-2 control-label">What Habit do you want to form? : </label>
                       <input
                         type="text"
+                        className="form-control"
                         ref="textInput"
-                      placeholder="Type to add new habit" />                     
+                      placeholder="Type to add new habit" />   
 
+
+                 <label  class="col-sm-2 control-label">How often do you want to perform it per week? : </label>
                       <input
                         type="number"
+                        className="form-control"
                         ref="freqInput"
                       placeholder="Target goal per week?" />
 
-                <select ref="state">
+                <label  class="col-sm-2 control-label"> Is it a good(positive) or bad(negative) habit? : </label>
+
+                <select ref="state" className="form-control">
                   <option value= "1">Positive</option>
                   <option value= "2">Negative</option>
-                  <option value ="3">Neutral</option>
+            
                 </select>  
 
-                <select ref="importance">
+                 <label  class="col-sm-2 control-label"> How difficult is it? : </label>
+
+                <select ref="importance" className="form-control">
                   <option value= "#d9534f">Very Hard</option>
                   <option value= "#f0ad4e">Hard</option>
                   <option value ="#FFCC00">Moderate</option>
@@ -64,10 +76,10 @@ ControlledModal = React.createClass({
 
                 </select>  
 
-                <button onClick={this.handleSubmit}  className="add-habit pull-right"> Submit Habit</button>
+                <button onClick={this.handleSubmit}  className="add-habit pull-left"> Add Habit</button>
 
                   </form> 
-          <button onClick={ this.props.closeModal }>Click Here to Close</button>
+         
         </Modal>
       </div>
     );

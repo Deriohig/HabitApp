@@ -2,18 +2,7 @@ Table = FixedDataTable.Table;
 Column = FixedDataTable.Column;
 Cell = FixedDataTable.Cell;
 
-TextCell =  React.createClass ({
- 	 
- 	render() {
-	    const {rowIndex, field, data, ...props} = this.props;
-	    console.log(data[rowIndex][field]);
-    return (
-	      <Cell {...this.props}>
-	        {data[rowIndex][field]}
-	      </Cell>
-    );
-  }
-});
+
 
 DateCell =  React.createClass ({
  	 

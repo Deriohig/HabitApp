@@ -17,8 +17,8 @@ Dashboard = React.createClass({
 
 			  	return {
 			  		controlledModalOpen : false,
-			  		selected: "month",
-			  		graphType: "bar"
+			  		selected: "week",
+			  		graphType: "area-spline"
 			  	};
 
 			  },
@@ -133,6 +133,12 @@ Dashboard = React.createClass({
 				var expValue = CurrentExp/MaxExp;
 				var expPercent = expValue *100;
 
+				console.log(expValue);
+
+				var hash = Math.round(MaxExp)
+				var curExp = String(CurrentExp);
+				var mxExp = String(hash);
+				var healthVal = String(health);
 				
 
 				
@@ -145,7 +151,6 @@ Dashboard = React.createClass({
 									backgroundColor:'#f1f2f2' };
 
 				var topblockoffgrey = {height:'100px',
-				
 
 									   backgroundColor:'#e6e7e8' };	
 
@@ -220,67 +225,100 @@ Dashboard = React.createClass({
 				return(
 
 					<div className="col-xs-11">
-		 				
-						<div className="row">
-
-
-							<div className="col-md-3" style= {avatarstyle}> <h3> Level: {Meteor.user().profile.level}</h3> </div>
-							<div className="col-md-3" style= {topblockgrey}><span className = "iconleft"><i className="icon-child" style={iconStyle}></i></span><div className="infoData"><span className="dataPoint">{totalhabits}</span><h4>Registered Habits</h4></div> </div>
-							<div className="col-md-3" style= {topblockoffgrey}><span className = "iconleft"><i className="icon-plus-squared" style={iconStyle}></i></span><div className="infoData"><span className="dataPoint">{allPos.length}</span> <h4>Positive Actions</h4></div></div>
-							<div className="col-md-3" style= {topblockgrey}><span className = "iconleft"><i className="icon-minus-squared" style={iconStyle}></i></span><div className="infoData"><span className="dataPoint">{allNeg.length}</span><h4>Negative Actions</h4></div></div>
-
-							<div className="col-md-3"style= {topblockoffgrey}><span className = "iconleft"><i className="icon-money" style={iconStyle}></i></span><div className="infoData"><span className="dataPoint">{Meteor.user().profile.karma}</span><h4>Karma Points</h4></div></div>
-							<div className="col-md-3" style= {topblockgrey}><span className = "iconleft"><i className="icon-arrows-cw" style={iconStyle}></i></span><div className="infoData"><span className="dataPoint"></span><h4>Longest Streak</h4></div></div>
-							<div className="col-md-3" style= {topblockoffgrey}><span className = "iconleft"><i className="icon-pitch" style={iconStyle}></i></span><div className="infoData"><span className="dataPoint">{Meteor.user().profile.actions}</span><h4>Completed Actions</h4></div></div>
-
-						</div>
-
-						<div className="row">
-							<div className="col-xs-12 clear-padding">								
-								<div className="col-md-6 clear-padding progress"><div className="progress-bar" role="progressbar progress-bar-warning" style={experience} aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><i className="icon-chart" style={{fontSize:'30px', float:'left'}}></i></div></div>								
-								<div className="col-md-6 clear-padding progress" style= {{backgroundColor:'#e6e7e8', height:'75px'}} ><div className="progress-bar" role="progressbar progress-bar-danger" style={health} aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"><span className="icon-heart"> </span>Health</div></div>
-							</div>
-						</div>
-
-						<div className="row">
-							<div className="col-xs-12">
-							<div className="col-xs-9" >
-								<div className="col-xs-7" >
-
-									<form action="">
-					
-										<span> Habits from: </span>	
-
-											  <input type="button"  onClick={this.setGraphLength.bind(this, "week")}  value="Last Week"></input>
-											  <input type="button" onClick={this.setGraphLength.bind(this, "month")}  value="Last Month"></input>
-
-										
-										<span> All Habits: </span>	
-
-											  <input type="button"  onClick={this.setGraphLength.bind(this, "week")}  value="In Weeks"></input>
-											  <input type="button" onClick={this.setGraphLength.bind(this, "month")}  value="In Months"></input>	
-									</form>	
-
-								</div>
-								<div className="col-xs-5" >
-
-									<form action="">
-										<span> Graphs: </span>	
-
-											  <input type="button"  onClick={this.setGraphType.bind(this, "area-spline")}  value="Spline Chart"></input>
-											  <input type="button" onClick={this.setGraphType.bind(this, "bar")}  value="Bar Chart"></input>
-											  <input type="button"  onClick={this.setGraphType.bind(this, "area-step")}  value="Steped Chart"></input>
-
-
-									</form>
-								</div>	
-							</div>
-								<div className="col-xs-12">
-										{ChartType}
-								</div>
-							</div>
-						</div>
+					    <div className="row">
+					        <div className="col-md-3" style={ avatarstyle}>
+					            <div style={{padding: '15px'}}>
+					                <h3 style={{color: ' white' ,float: 'right', paddingTop: "30px"}}>{Meteor.user().username} <br></br><br></br> <span>Level: {Meteor.user().profile.level}</span> </h3>
+					                <div className="hexagon">
+					                    <div className="hexTop"></div>
+					                    <div className="hexBottom"></div>
+					                </div>
+					            </div>
+					        </div>
+					        <div className="col-md-3" style={ topblockgrey}>
+					            <span className="iconleft">
+														<i className="icon-child" style={iconStyle}></i>
+													</span>
+					            <div className="infoData">
+					                <span className="dataPoint">
+																{totalhabits}
+															</span>
+					                <h4>Registered Habits</h4>
+					            </div>
+					        </div>
+					        <div className="col-md-3" style={topblockoffgrey}>
+					            <span className="iconleft">
+														<i className="icon-plus-squared" style={iconStyle}></i>
+													</span>
+					            <div className="infoData">
+					                <span className="dataPoint">
+															{allPos.length}
+														</span>
+					                <h4>Positive Actions</h4>
+					            </div>
+					        </div>
+					        <div className="col-md-3" style={topblockgrey}><span className="iconleft"><i className="icon-minus-squared" style={iconStyle}></i></span>
+					            <div className="infoData"><span className="dataPoint">{allNeg.length}</span>
+					                <h4>Negative Actions</h4></div>
+					        </div>
+					        <div className="col-md-3" style={topblockoffgrey}><span className="iconleft"><i className="icon-money" style={iconStyle}></i></span>
+					            <div className="infoData"><span className="dataPoint">{Meteor.user().profile.karma}</span>
+					                <h4>Karma Points</h4></div>
+					        </div>
+					        <div className="col-md-3" style={topblockgrey}><span className="iconleft"><i className="icon-arrows-cw" style={iconStyle}></i></span>
+					            <div className="infoData"><span className="dataPoint"></span>
+					                <h4>Longest Streak</h4></div>
+					        </div>
+					        <div className="col-md-3" style={topblockoffgrey}><span className="iconleft"><i className="icon-pitch" style={iconStyle}></i></span>
+					            <div className="infoData"><span className="dataPoint">{Meteor.user().profile.actions}</span>
+					                <h4>Completed Actions</h4></div>
+					        </div>
+					    </div>
+					    <div className="row">
+					        <div className="col-xs-12 clear-padding">
+					            <div className="col-md-6 clear-padding progress">
+					                <div className="progress-bar" role="progressbar progress-bar-warning" style={experience} aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+					                	<span className="icon-chart" style={{fontSize: '30px', float: 'left'}}> Experience </span>
+					                	<span > {curExp} / {mxExp} </span>
+					                </div>
+					            </div>
+					            <div className="col-md-6 clear-padding progress" style={ {backgroundColor: '#e6e7e8', height: '75px'}}>
+					                <div className="progress-bar" role="progressbar progress-bar-danger" style={health} aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">
+					                	<span className="icon-heart"> Health </span>
+					                	<span > {healthVal} / 100 </span>
+					                </div>
+					            </div>
+					        </div>
+					    </div>
+					    <div className="row">
+					        <div className="col-xs-12">
+					            <div className="col-xs-9">
+					                <div className="col-xs-7">
+					                    <form action="">
+					                        <span> Habits from: </span>
+					                        <input type="button" onClick={this.setGraphLength.bind(this, "week")} value="Last Week"></input>
+					                        <input type="button" onClick={this.setGraphLength.bind(this, "month")} value="Last Month"></input>
+					                        <span> All Habits: </span>
+					                        <input type="button" onClick={this.setGraphLength.bind(this, "week")} value="In Weeks"></input>
+					                        <input type="button" onClick={this.setGraphLength.bind(this, "month")} value="In Months"></input>
+					                    </form>
+					                </div>
+					                <div className="col-xs-5">
+					                    <form action="">
+					                        <span> Graphs: </span>
+					                        <input type="button" onClick={this.setGraphType.bind(this, "area-spline")} value="Spline Chart"></input>
+					                        <input type="button" onClick={this.setGraphType.bind(this, "bar")} value="Bar Chart"></input>
+					                        <input type="button" onClick={this.setGraphType.bind(this, "area-step")} value="Steped Chart"></input>
+					                    </form>
+					                </div>
+					            </div>
+					            <div className="col-xs-12">
+					                {ChartType}
+					            </div>
+					        </div>
+					    </div>
 					</div>
+
 
 					);
 			}
