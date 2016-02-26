@@ -39,9 +39,8 @@ d3js:d3
 benmgreene:moment-range
 visudare:fontello
 ildar:fixed-data-table
-ixdi:material-design-iconic-font
 peernohell:c3
 cosmos:browserify
-client-deps
 patrickml:react-modal
 praneybehl:react-notification
+ovcharik:favico

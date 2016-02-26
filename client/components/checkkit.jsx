@@ -33,30 +33,35 @@ mixins: [ ReactMeteorData ],
   },
 
   render() {
-
-    if(Meteor.hasUser == false){
-        window.location.replace("http://localhost:3000/");
-    }
-    console.log(this.props.sendhome);
+    
+    console.log(this.data.hasUser);
 if(!this.data.hasUser){
+  console.log(this.props.indexheader);
     return (
   
     <div className="container-fluid app-root">
             <div className="col-xs-12 clear-padding">
-                  {this.props.sendhome}                
+                  {this.props.sendhome}     
+                  {this.props.indexheader}                
             </div>
     </div>
     );
   }
-  else if(this.props.indexheader){
 
-    <div className="container-fluid app-root">
-            <div className="col-xs-12 clear-padding">
-                  {this.props.indexheader}                
-            </div>
-    </div>
+  else if(this.props.indexheader != undefined){
+    console.log(this.props.indexheader);
+
+    return(
+
+      <div className="container-fluid app-root">
+              <div className="col-xs-12 clear-padding">
+                    {this.props.indexheader}                
+              </div>
+      </div>
+    )
   }
   else{
+    console.log(this.props.indexheader);
     return (
   
     <div className="container-fluid app-root">
